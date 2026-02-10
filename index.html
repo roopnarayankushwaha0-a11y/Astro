@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/icons/favicon.svg" />
+    <link rel="alternate icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.json" />
+    
+    <!-- Mobile Viewport & PWA Settings -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="theme-color" content="#1a1a2e" />
+    <meta name="background-color" content="#0f0f1a" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Palm Reader" />
+    <meta name="application-name" content="AI Palm Reader" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-TileColor" content="#1a1a2e" />
+    <meta name="msapplication-tap-highlight" content="no" />
+
+    <!-- SEO & Description -->
+    <meta name="description" content="Discover your destiny with AI-powered Palm Reading, Tarot Guidance, and Daily Horoscope. A spiritual journey in your pocket." />
+    <meta name="keywords" content="palm reading, tarot, astrology, horoscope, ai spiritual guide, zodiac, daily guidance" />
+    <meta property="og:title" content="AI Palm Reader – Your Cosmic Guide" />
+    <meta property="og:description" content="Unlock the secrets of your hand and stars with advanced AI analysis." />
+    <meta property="og:image" content="/icons/icon-512x512.png" />
+    <meta property="og:type" content="website" />
+
+    <!-- Fonts: Outfit (Modern/Clean) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <title>AI Palm Reader – Tarot & Astrology</title>
+
+    <!-- Initial Loading Styles (Critical Path CSS) -->
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #0f0f1a;
+        color: #ffffff;
+        font-family: 'Outfit', sans-serif;
+        overflow: hidden; /* Prevent scroll on splash */
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      #root {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+      /* Simple CSS Loader for initial mount */
+      #initial-loader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: radial-gradient(circle at center, #2a2a40 0%, #0f0f1a 100%);
+        z-index: 9999;
+        transition: opacity 0.5s ease;
+      }
+      .spinner {
+        width: 40px;
+        height: 40px;
+        border: 3px solid rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        border-top-color: #a78bfa;
+        animation: spin 1s ease-in-out infinite;
+      }
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Fallback Loader visible until React mounts -->
+    <div id="initial-loader">
+      <div class="spinner"></div>
+    </div>
+
+    <div id="root"></div>
+    
+    <script type="module" src="/src/main.jsx"></script>
+    
+    <!-- Service Worker Registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch(error => {
+            console.log('SW Registration failed:', error);
+          });
+        });
+      }
+    </script>
+  </body>
+</html>
